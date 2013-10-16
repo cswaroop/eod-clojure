@@ -1,0 +1,17 @@
+(ns eod-clojure.core
+  (:gen-class))
+
+(defn -main
+  "I don't do a whole lot ... yet."
+  [& args]
+  (use 'korma.core)
+  (use 'clojure.java.jdbc)
+  	(def db {:classname "oracle.jdbc.driver.OracleDriver"
+  			 :subprotocol "oracle"
+  			 :subname "thin:@192.168.1.51:1521:AGS8XQA"
+  			 :user "GRAINCORP_APP_7072"
+  			 :password "GRAINCORP_APP_7072"})
+  	(with-connection db
+  		(with-query-results rs ["select * from pcm_physical_contract_main"]
+  			(dorun (map #(println (:title %)) rs)))))
+  
